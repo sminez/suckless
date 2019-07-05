@@ -103,7 +103,7 @@ static const char *drawtermcmd[]  = { "draw-term", NULL };
 static const char *lockcmd[]  = { "/home/innes/bin/lock-screen", NULL };
 static const char *mutecmd[]  = { "amixer", "sset", "'Master'", "unmute", NULL };
 static const char *playyoutubecmd[]  = { "play-youtube", NULL };
-static const char *powermenucmd[]  = { "/home/innes/bin/scripts/power-menu.sh", NULL };
+static const char *logoutcmd[]  = { "/home/innes/bin/scripts/dwm/logout.sh", NULL };
 static const char *pythonconsolecmd[]  = { "python3.7", "-m", "qtconsole", NULL };
 /* static const char *termcmd[]  = { "tilix", NULL }; */
 static const char scratchpadname[] = "scratchpad";
@@ -126,7 +126,7 @@ static Key keys[] = {
 	{ MODKEY|Mod1Mask,      XK_l,            spawn,          {.v = lockcmd } },
 	{ MODKEY|Mod1Mask,      XK_r,            quit,           {0} }, /* This actually reloads dwm due to my wrapper script */
 	{ MODKEY|Mod1Mask,      XK_b,            togglebar,      {0} },
-	{ MODKEY|Mod1Mask,      XK_Escape,       spawn,          {.v = powermenucmd } },
+	{ MODKEY|Mod1Mask,      XK_Escape,       spawn,          {.v = logoutcmd } },
 	{ MODKEY|Mod1Mask,      XK_k,            spawn,          {.v = togglekbcmd } },
 	{ MODKEY,               XK_n,            spawn,          {.v = wifimenucmd } },
 	{ MODKEY,               XK_w,            spawn,          {.v = windowselectcmd } },
