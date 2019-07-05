@@ -1,0 +1,73 @@
+From 2c2500c057433148c49465b9d009193ffcef6432 Mon Sep 17 00:00:00 2001
+From: Michael Buch <michaelbuch12@gmail.com>
+Date: Fri, 25 May 2018 00:02:40 +0100
+Subject: [PATCH] [st patch] Add ability to open clipboard with configured
+ program
+
+Lets user define a program to run in config.h and uses contents
+of CLIPBOARD selection to pass as a parameter. This can be bound
+to any key. By default binds Mod+o to opening the default
+browser.
+---
+ config.def.h |  1 +
+ st.h         |  1 +
+ x.c          | 22 ++++++++++++++++++++++
+ 3 files changed, 24 insertions(+)
+
+diff --git a/config.def.h b/config.def.h
+index 82b1b09..83627db 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -178,6 +178,7 @@ static Shortcut shortcuts[] = {
+ 	{ TERMMOD,              XK_Y,           selpaste,       {.i =  0} },
+ 	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
+ 	{ TERMMOD,              XK_I,           iso14755,       {.i =  0} },
++	{ MODKEY,               XK_o,           opencopied,     {.v = "xdg-open"} },
+ };
+ 
+ /*
+diff --git a/st.h b/st.h
+index dac64d8..773eeb3 100644
+--- a/st.h
++++ b/st.h
+@@ -81,6 +81,7 @@ void redraw(void);
+ void draw(void);
+ 
+ void iso14755(const Arg *);
++void opencopied(const Arg *);
+ void printscreen(const Arg *);
+ void printsel(const Arg *);
+ void sendbreak(const Arg *);
+diff --git a/x.c b/x.c
+index c0bd890..b7edc5e 100644
+--- a/x.c
++++ b/x.c
+@@ -1949,3 +1949,25 @@ run:
+ 
+ 	return 0;
+ }
++
++void
++opencopied(const Arg *arg)
++{
++	const size_t max_cmd = 2048;
++	const char *clip = xsel.clipboard;
++	if(!clip) {
++		fprintf(stderr, "Warning: nothing copied to clipboard\n");
++		return;
++	}
++
++	/* account for space/quote (3) and \0 (1) */
++	char cmd[max_cmd + strlen(clip) + 4];
++	strncpy(cmd, (char *)arg->v, max_cmd);
++	cmd[max_cmd] = '\0';
++
++	strcat(cmd, " \"");
++	strcat(cmd, clip);
++	strcat(cmd, "\"");
++
++	system(cmd);
++}
+-- 
+2.17.0
+
