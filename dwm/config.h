@@ -18,12 +18,11 @@ static const char col_gray1[]            = "#282828";
 static const char col_gray2[]            = "#3c3836";
 static const char col_gray3[]            = "#a89984";
 static const char col_gray4[]            = "#f2e5bc";
+static const char col_highlight[]        = "#458588";
 /* static const char col_highlight[]        = "#b16286"; */
-/* static const char col_highlight[]        = "#458588"; */
 /* static const char col_highlight[]        = "#076678"; */
 /* static const char col_highlight[]        = "#75507B"; */
 /* static const char col_highlight[]        = "#8ec07c"; */
-static const char col_highlight[]        = "#40af61";
 
 #define baralpha    0xd0
 #define borderalpha OPAQUE
@@ -40,7 +39,6 @@ static const unsigned int alphas[][3]      = {
 };
 
 /* tagging */
-/* static const char *tags[] = { "1 ", "2 ", "3 ", "4 ", "5 ", "6 ", "7 ", "8 λ", "9 " }; */
 /* static const char *tags[] = { "", "", "", "", "", "", "", "λ", "" }; */
 /* static const char *tags[] = { "term", "note", "doc", "web1", "web2", "code", "edit", "repl", "media" }; */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
@@ -56,7 +54,7 @@ static const Rule rules[] = {
 	{ "Spotify",           NULL,       NULL,       1 << 8,       0,           -1 },
 	{ "Skype",             NULL,       NULL,       1 << 8,       0,           -1 },
 	{ "drawn-term",        NULL,       NULL,       0,            1,           -1 },
-	{ "jupyter-qtconsole", NULL,       NULL,       0,            1,           -1 },
+	/* { "jupyter-qtconsole", NULL,       NULL,       0,            1,           -1 }, */
 	{ "mpv",               NULL,       NULL,       0,            1,           -1 },
 };
 
@@ -96,47 +94,51 @@ static const char *dmenucmd[] = {
     "-sb", col_highlight, "-nb", col_gray1, "-nf", col_gray4,
     "-l", "10", NULL
 };
+    /* "-sb", col_highlight, "-nb", col_gray1, "-nf", col_gray4, */
 /* static const char *dmenucmd[] = { "/home/innes/bin/rofi-apps", NULL }; */
-static const char *acmeopencmd[]  = { "/home/innes/Personal/acme-corp/scripts/afindfile.sh", NULL };
-static const char *acmesearchcmd[]  = { "/home/innes/Personal/acme-corp/scripts/acme-fuzzy-window-search.sh", NULL };
+static const char *acmeopencmd[]  = { "/home/innes/go/src/github.com/sminez/acme-corp/scripts/afindfile.sh", NULL };
+static const char *acmesearchcmd[]  = { "/home/innes/go/src/github.com/sminez/acme-corp/scripts/acme-fuzzy-window-search.sh", NULL };
+static const char *wifimenucmd[]  = { "/home/innes/bin/rofi-wifi-menu", NULL };
+static const char *windowselectcmd[]  = { "rofi", "-show", "window", NULL };
 static const char *drawtermcmd[]  = { "draw-term", NULL };
 static const char *lockcmd[]  = { "/home/innes/bin/lock-screen", NULL };
 static const char *mutecmd[]  = { "amixer", "sset", "'Master'", "unmute", NULL };
-static const char *playyoutubecmd[]  = { "play-youtube", NULL };
 static const char *logoutcmd[]  = { "/home/innes/bin/scripts/dwm/logout.sh", NULL };
-static const char *pythonconsolecmd[]  = { "python3.7", "-m", "qtconsole", NULL };
-/* static const char *termcmd[]  = { "tilix", NULL }; */
+static const char *pythonconsolecmd[]  = { "python3", "-m", "qtconsole", NULL };
 static const char scratchpadname[] = "scratchpad";
 static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "120x34", NULL };
 static const char *screenshotcmd[]  = { "screenshot", NULL };
 static const char *termcmd[]  = { "st", NULL };
 static const char *togglekbcmd[]  = { "toggle-keyboard-layout", NULL };
+/* static const char *qutebrowsercmd[]  = { "qutebrowser", NULL }; */
+/* static const char *firefoxcmd[]  = { "firefox", NULL }; */
 static const char *voldowncmd[]  = { "amixer", "sset", "'Master'", "5%-", NULL };
 static const char *volupcmd[]  = { "amixer", "sset", "'Master'", "5%+", NULL };
-static const char *wifimenucmd[]  = { "rofi-wifi-menu", NULL };
-static const char *windowselectcmd[]  = { "rofi", "-show", "window", NULL };
 
 #include "keepfloatingposition.c"
 
 /* see /usr/include/X11/keysymdef.h for available keys */
 static Key keys[] = {
 	/* modifier             key              function        argument */
+
+	/* System actions and utility scripts */
 	{ MODKEY,               XK_semicolon,    spawn,          {.v = dmenucmd } },
 	{ MODKEY,               XK_Return,       spawn,          {.v = termcmd } },
 	{ MODKEY|Mod1Mask,      XK_l,            spawn,          {.v = lockcmd } },
 	{ MODKEY|Mod1Mask,      XK_r,            quit,           {0} }, /* This actually reloads dwm due to my wrapper script */
 	{ MODKEY|Mod1Mask,      XK_b,            togglebar,      {0} },
+	{ MODKEY,               XK_p,            togglepinned,   {0} },
 	{ MODKEY|Mod1Mask,      XK_Escape,       spawn,          {.v = logoutcmd } },
 	{ MODKEY|Mod1Mask,      XK_k,            spawn,          {.v = togglekbcmd } },
-	{ MODKEY,               XK_n,            spawn,          {.v = wifimenucmd } },
-	{ MODKEY,               XK_w,            spawn,          {.v = windowselectcmd } },
-	{ MODKEY,               XK_o,            spawn,          {.v = acmeopencmd } },
-	{ MODKEY,               XK_s,            spawn,          {.v = acmesearchcmd } },
-	{ MODKEY|ShiftMask,     XK_s,            spawn,          {.v = screenshotcmd } },
-	{ MODKEY|ShiftMask,     XK_p,            spawn,          {.v = pythonconsolecmd } },
-	{ MODKEY,               XK_p,            togglepinned,   {0} },
 	{ MODKEY,               XK_slash,        togglescratch,  {.v = scratchpadcmd } },
-	{ MODKEY|ShiftMask,     XK_y,            spawn,	         {.v = playyoutubecmd } },
+	{ MODKEY|ShiftMask,     XK_s,            spawn,          {.v = screenshotcmd } },
+
+	/* Utility scripts */
+	{ MODKEY|ShiftMask,     XK_p,            spawn,          {.v = pythonconsolecmd } },
+    { MODKEY,               XK_w,            spawn,          {.v = windowselectcmd } },
+    { MODKEY,               XK_n,            spawn,          {.v = wifimenucmd } },
+    { MODKEY,               XK_s,            spawn,          {.v = acmesearchcmd } },
+    { MODKEY,               XK_o,            spawn,          {.v = acmeopencmd } },
 
     /* Audio control */
 	{ MODKEY,               XK_F1,           spawn,          {.v = mutecmd } },
