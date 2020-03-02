@@ -1,20 +1,20 @@
-#!/usr/bin/python3.7
+#!/usr/bin/env python3
 """
 A simple status generator intended for use with dwm.
 
 Supports segments running python code or alternatively calling out to a
 shell script.
 """
+import os
 import time
 import subprocess
 
-SCRIPT_DIR = "/home/innes/bin/scripts/dwm"
+SCRIPT_DIR = os.path.expanduser("~/bin/scripts/dwm")
 
 
 def run(cmd, raw=False):
-    """Run a shell command"""
     if not raw:
-        cmd = f"{SCRIPT_DIR}/{cmd}"
+        cmd = os.path.join(SCRIPT_DIR, cmd)
 
     def _cmd():
         res = subprocess.run(cmd.split(), stdout=subprocess.PIPE)
@@ -24,9 +24,6 @@ def run(cmd, raw=False):
 
 
 class Segment:
-    """
-    A segment that updates state every `interval` seconds
-    """
     def __init__(self, cmd=None, interval=1):
         self.interval = interval
         self.cmd = cmd
@@ -34,7 +31,6 @@ class Segment:
         self._state = ""
 
     def update(self, tick):
-        """Update the state if we ticked."""
         if tick < self._last_tick + self.interval:
             return
 
