@@ -3,7 +3,7 @@
 dmenu \- dynamic menu
 .SH SYNOPSIS
 .B dmenu
-.RB [ \-bfiv ]
+.RB [ \-bfiPv ]
 .RB [ \-l
 .IR lines ]
 .RB [ \-m
@@ -43,6 +43,11 @@ dmenu appears at the bottom of the screen.
 .B \-f
 dmenu grabs the keyboard before reading stdin if not reading from a tty. This
 is faster, but will lock up X until stdin reaches end\-of\-file.
+.TP
+.B \-P
+dmenu treats the input as sensitive (typically a password) and renders only
+a '*' character per keypress. The input is still returned to the calling process
+as entered.
 .TP
 .B \-i
 dmenu matches menu items case insensitively.

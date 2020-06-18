@@ -18,8 +18,8 @@ static const char col_gray1[]            = "#282828";
 static const char col_gray2[]            = "#3c3836";
 static const char col_gray3[]            = "#a89984";
 static const char col_gray4[]            = "#f2e5bc";
-static const char col_highlight[]        = "#458588";
-/* static const char col_highlight[]        = "#b16286"; */
+static const char col_highlight[]        = "#b16286";
+/* static const char col_highlight[]        = "#458588"; */
 /* static const char col_highlight[]        = "#076678"; */
 /* static const char col_highlight[]        = "#75507B"; */
 /* static const char col_highlight[]        = "#8ec07c"; */
@@ -31,6 +31,7 @@ static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
 	[SchemeSel]  = { col_gray4, col_highlight, col_highlight },
+	[SchemeBar]  = { col_gray1, col_highlight, col_highlight },
 };
 static const unsigned int alphas[][3]      = {
 	/*               fg      bg        border     */
@@ -94,7 +95,6 @@ static const char *dmenucmd[] = {
     "-sb", col_highlight, "-nb", col_gray1, "-nf", col_gray4,
     "-l", "10", NULL
 };
-    /* "-sb", col_highlight, "-nb", col_gray1, "-nf", col_gray4, */
 /* static const char *dmenucmd[] = { "/home/innes/bin/rofi-apps", NULL }; */
 static const char *acmeopencmd[]  = { "/home/innes/go/src/github.com/sminez/acme-corp/scripts/afindfile.sh", NULL };
 static const char *acmesearchcmd[]  = { "/home/innes/go/src/github.com/sminez/acme-corp/scripts/acme-fuzzy-window-search.sh", NULL };
@@ -103,15 +103,13 @@ static const char *windowselectcmd[]  = { "rofi", "-show", "window", NULL };
 static const char *drawtermcmd[]  = { "draw-term", NULL };
 static const char *lockcmd[]  = { "/home/innes/bin/lock-screen", NULL };
 static const char *mutecmd[]  = { "amixer", "sset", "'Master'", "unmute", NULL };
-static const char *logoutcmd[]  = { "/home/innes/bin/scripts/dwm/logout.sh", NULL };
+static const char *logoutcmd[]  = { "/home/innes/bin/scripts/power-menu.sh", NULL };
 static const char *pythonconsolecmd[]  = { "python3", "-m", "qtconsole", NULL };
 static const char scratchpadname[] = "scratchpad";
 static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "120x34", NULL };
 static const char *screenshotcmd[]  = { "screenshot", NULL };
 static const char *termcmd[]  = { "st", NULL };
 static const char *togglekbcmd[]  = { "toggle-keyboard-layout", NULL };
-/* static const char *qutebrowsercmd[]  = { "qutebrowser", NULL }; */
-/* static const char *firefoxcmd[]  = { "firefox", NULL }; */
 static const char *voldowncmd[]  = { "amixer", "sset", "'Master'", "5%-", NULL };
 static const char *volupcmd[]  = { "amixer", "sset", "'Master'", "5%+", NULL };
 
@@ -141,9 +139,9 @@ static Key keys[] = {
     { MODKEY,               XK_o,            spawn,          {.v = acmeopencmd } },
 
     /* Audio control */
-	{ MODKEY,               XK_F1,           spawn,          {.v = mutecmd } },
-	{ MODKEY,               XK_F2,           spawn,          {.v = voldowncmd } },
-	{ MODKEY,               XK_F3,           spawn,          {.v = volupcmd } },
+	{ MODKEY,               XK_F6,           spawn,          {.v = mutecmd } },
+	{ MODKEY,               XK_F7,           spawn,          {.v = voldowncmd } },
+	{ MODKEY,               XK_F8,           spawn,          {.v = volupcmd } },
 
     /* Cycle between windows on the stack */
 	{ MODKEY,               XK_j,            focusstack,     {.i = +1 } },
