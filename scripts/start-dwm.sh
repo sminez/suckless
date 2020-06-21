@@ -8,7 +8,7 @@ is_running() { pgrep -fail "$1"; }
 
 # Make sure we only run once
 pid=$$
-pgrep -x start-dwm.sh | grep -v "^$pid$" | xargs kill
+pgrep -fi start-dwm.sh | grep -v "^$pid$" | xargs kill
 
 # Set screen resolutions (add additional screens here)
 # xrandr --output eDP-1 --mode 1920x1080 &
@@ -17,7 +17,7 @@ pgrep -x start-dwm.sh | grep -v "^$pid$" | xargs kill
 # Fix stupid Java apps that fail without a WMNAME to look for...
 wmname LG3D
 
-pgrep -x 'dwmstat.zsh' | xargs kill
+pgrep -fi 'dwmstat.zsh' | xargs kill
 /home/innes/bin/scripts/dwmstat.zsh &
 
 # Set the background image
