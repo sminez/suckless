@@ -22,7 +22,7 @@ function get_battery {
     icon=""
   elif (( perc < 10 )); then
     icon=""
-  elif (( perc = 100 )); then
+  elif (( perc == 100 )); then
     icon=""
   else
     case "$(echo "$perc" | cut -c1)" in
