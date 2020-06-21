@@ -4,8 +4,6 @@
 # >> This get's run on restart as well!
 # -------------------------------------
 
-is_running() { pgrep -fail "$1"; }
-
 # Make sure we only run once
 pid=$$
 pgrep -fi start-dwm.sh | grep -v "^$pid$" | xargs kill
@@ -18,18 +16,18 @@ pgrep -fi start-dwm.sh | grep -v "^$pid$" | xargs kill
 wmname LG3D
 
 pgrep -fi 'dwmstat.zsh' | xargs kill
-/home/innes/bin/scripts/dwmstat.zsh &
+"$HOME/bin/scripts/dwmstat.zsh" &
 
-# Set the background image
-feh --bg-fill /home/innes/Pictures/wallpapers/cookie.jpg &
+running() { pgrep -fi "$1" >/dev/null; }
 
-[[ $(is_running 'picom') ]] || picom &  # -cf --backend xr_glx_hybrid --vsync opengl --xrender-sync-fence --vsync-aggressive --xrender-sync -m .9 &
-[[ $(is_running 'nm-applet') ]] || nm-applet &
-[[ $(is_running 'udiskie') ]] || udiskie -a -n -t &
-[[ $(is_running 'xautolock') ]] || xautolock -detectsleep -time 3 -locker "/home/innes/bin/lock-screen"  -notify 30 -notifier "notify-send -u critical -t 10000 -- 'LOCKING screen in 30 seconds...'" &
-[[ $(is_running 'volumeicon') ]] || volumeicon &
-[[ $(is_running 'dunst') ]] || dunst &
-[[ $(is_running 'xfce4-power-manager') ]] || xfce4-power-manager &
-[[ $(is_running 'gnome-keyring-daemon') ]] || gnome-keyring-daemon --start --components=pkcs11,secrets,ssh &
+running picom || picom &  # -cf --backend xr_glx_hybrid --vsync opengl --xrender-sync-fence --vsync-aggressive --xrender-sync -m .9 &
+running nm-applet || nm-applet &
+running udiskie || udiskie -a -n -t &
+running xautolock || xautolock -detectsleep -time 3 -locker "/home/innes/bin/lock-screen"  -notify 30 -notifier "notify-send -u critical -t 10000 -- 'LOCKING screen in 30 seconds...'" &
+running volumeicon || volumeicon &
+running dunst || dunst &
+running xfce4-power-manager || xfce4-power-manager &
+running gnome-keyring-daemon || gnome-keyring-daemon --start --components=pkcs11,secrets,ssh &
 
-/home/innes/bin/unlock-ssh.sh &
+feh --bg-fill "$HOME/Pictures/wallpapers/cookie.jpg" &
+"$HOME/bin/unlock-ssh.sh" &
