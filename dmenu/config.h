@@ -1,7 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 /* Default settings; can be overriden by command line. */
 
-static int topbar = 1;                      /* -b  option; if 0, dmenu appears at bottom     */
+static int topbar = 1;                     /* -b  option; if 0, dmenu appears at bottom     */
 static int fuzzy = 1;                      /* -F  option; if 0, dmenu doesn't use fuzzy matching     */
 /* -fn option overrides fonts[0]; default X11 font or font set */
 static const char *fonts[] = {
@@ -11,13 +11,13 @@ static const char *prompt      = NULL;      /* -p  option; prompt to the left of
 static const char *colors[SchemeLast][2] = {
 	/*     fg         bg       */
 	[SchemeNorm] = { "#bbbbbb", "#282828" },
-	[SchemeSel] = { "#eeeeee", "#b16286" },
-	/* [SchemeSel] = { "#eeeeee", "#076678" }, */
+	[SchemeSel] = { "#eeeeee", "#458588" },
+	/* [SchemeSel] = { "#eeeeee", "#b16286" }, */
 	[SchemeOut] = { "#000000", "#f2e5bc" },
 };
 
 /* -l option; if nonzero, dmenu uses vertical list with given number of lines */
-static unsigned int lines      = 0;
+static unsigned int lines = 10;
 
 /*
  * Characters not considered part of a word while deleting words
@@ -26,7 +26,7 @@ static unsigned int lines      = 0;
 static const char worddelimiters[] = " ";
 
 /* Size of the window border */
-static const unsigned int border_width = 1;
+static const unsigned int border_width = 2;
 
 /* Max width */
 static const unsigned int max_width = 600;

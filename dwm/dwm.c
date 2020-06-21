@@ -897,7 +897,14 @@ drawbar(Monitor *m)
 		if (c->isurgent)
 			urg |= c->tags;
 	}
+
+	/* Draw an arch logo...because why not (requires "Iosevka Nerd Font") */
 	x = 0;
+	w = TEXTW("");
+	drw_setscheme(drw, scheme[SchemeBar]);
+	drw_text(drw, x, 0, w, bh, lrpad / 3, "", 1);
+	x = w;
+
 	for (i = 0; i < LENGTH(tags); i++) {
 		w = TEXTW(tags[i]);
 		drw_setscheme(drw, scheme[m->tagset[m->seltags] & 1 << i ? SchemeSel : SchemeNorm]);
