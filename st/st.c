@@ -683,8 +683,10 @@ execsh(char *cmd, char **args)
 			die("who are you?\n");
 	}
 
-	if ((sh = getenv("SHELL")) == NULL)
-		sh = (pw->pw_shell[0]) ? pw->pw_shell : cmd;
+    /* XXX (idam): Ignoring environment shell in favour of config */
+	/* if ((sh = getenv("SHELL")) == NULL) */
+	/* 	sh = (pw->pw_shell[0]) ? pw->pw_shell : cmd; */
+    sh = cmd;
 
 	if (args) {
 		prog = args[0];
