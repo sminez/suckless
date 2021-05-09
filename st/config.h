@@ -5,7 +5,8 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "ProFont For Powerline:size=10:antialias=true:autohint=true";
+/* static char *font = "ProFontIIx Nerd Font:size=8:antialias=true:autohint=true"; */
+static char *font = "Fira Code:size=10:antialias=true:autohint=true";
 static int borderpx = 2;
 
 /*
@@ -45,7 +46,7 @@ int allowaltscreen = 1;
 
 /* allow certain non-interactive (insecure) window operations such as:
    setting the clipboard text */
-int allowwindowops = 0;
+int allowwindowops = 1;
 
 /*
  * draw latency range in ms - from new content/keypress/etc until drawing.
@@ -86,8 +87,8 @@ const int boxdraw_braille = 1;
 static int bellvolume = 0;
 
 /* default TERM value */
-/* char *termname = "st-256color"; */
-char *termname = "xterm-256color";
+char *termname = "st-256color";
+/* char *termname = "xterm-256color"; */
 
 /*
  * spaces per tab
@@ -104,35 +105,52 @@ char *termname = "xterm-256color";
  *
  *	stty tabs
  */
-unsigned int tabspaces = 8;
+unsigned int tabspaces = 4;
 
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
 	/* 8 normal colors */
-	"black",
-	"red3",
-	"green3",
-	"yellow3",
-	"blue2",
-	"magenta3",
-	"cyan3",
-	"gray90",
+	/* "black", */
+	/* "red3", */
+	/* "green3", */
+	/* "yellow3", */
+	/* "blue2", */
+	/* "magenta3", */
+	/* "cyan3", */
+	/* "gray90", */
+    "#4E415C",
+    "#EB64B9",
+    "#74DFC4",
+    "#FFE261",
+    "#40B4C4",
+    "#B381C5",
+    "#4D8079",
+    "#F9F5D7",
 
 	/* 8 bright colors */
-	"gray50",
-	"red",
-	"green",
-	"yellow",
-	"#5c5cff",
-	"magenta",
-	"cyan",
-	"white",
+	/* "gray50", */
+	/* "red", */
+	/* "green", */
+	/* "yellow", */
+	/* "#5c5cff", */
+	/* "magenta", */
+	/* "cyan", */
+	/* "white", */
+    "#4E415C",
+    "#EB64B9",
+    "#74DFC4",
+    "#FFE261",
+    "#40B4C4",
+    "#B381C5",
+    "#4D8079",
+    "#F9F5D7",
 
 	[255] = 0,
 
 	/* more colors can be added after 255 to use with DefaultXX */
-	"#cccccc",
-	"#555555",
+	/* "#cccccc", */
+	/* "#555555", */
+    "#1B1720",
 };
 
 
@@ -141,9 +159,9 @@ static const char *colorname[] = {
  * foreground, background, cursor, reverse cursor
  */
 unsigned int defaultfg = 7;
-unsigned int defaultbg = 233;
-static unsigned int defaultcs = 256;
-static unsigned int defaultrcs = 257;
+unsigned int defaultbg = 256;  // 233
+static unsigned int defaultcs = 7; // 256
+static unsigned int defaultrcs = 7; // 257
 
 /*
  * Default shape of cursor
@@ -187,8 +205,8 @@ static uint forcemousemod = ShiftMask;
  */
 static MouseShortcut mshortcuts[] = {
 	/* mask                 button   function        argument       release */
-	{ ShiftMask,            Button4, kscrollup,      {.i = 1} },
-	{ ShiftMask,            Button5, kscrolldown,    {.i = 1} },
+	{ XK_ANY_MOD,           Button4, kscrollup,      {.i = 1} },
+	{ XK_ANY_MOD,           Button5, kscrolldown,    {.i = 1} },
 	{ XK_ANY_MOD,           Button2, selpaste,       {.i = 0},      1 },
 	{ ShiftMask,            Button4, ttysend,        {.s = "\033[5;2~"} },
 	{ XK_ANY_MOD,           Button4, ttysend,        {.s = "\031"} },
